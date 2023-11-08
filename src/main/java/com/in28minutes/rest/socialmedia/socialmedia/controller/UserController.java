@@ -3,6 +3,7 @@ package com.in28minutes.rest.socialmedia.socialmedia.controller;
 import com.in28minutes.rest.socialmedia.socialmedia.exceptionHandling.UserNotFoundException;
 import com.in28minutes.rest.socialmedia.socialmedia.services.UserDaoService;
 import com.in28minutes.rest.socialmedia.socialmedia.users.User;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -31,8 +32,13 @@ public class UserController {
         return user;
     }
 
+    @DeleteMapping("/users/{id}")
+    public void DeleteUser(@PathVariable Integer id){
+         userService.deleteId(id);
+    }
+
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<User> createUser(@RequestBody @Valid User user){
         var savedUser = userService.saveUser(user);
         var location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

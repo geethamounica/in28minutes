@@ -30,4 +30,8 @@ public class UserDaoService {
         users.add(user);
         return user;
     }
+
+    public void deleteId(Integer id) {
+        users.removeIf(user -> user.getId().equals(id));
+    }
 }
